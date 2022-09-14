@@ -1,12 +1,17 @@
 class Node:
+
+    
     def __init__(self, data, next_node=None):
         self.data = data 
         self.next = next_node 
 
     
 class LinkedList:
+
+
     def __init__(self):
         self.head = None
+
 
     def add_node(self, data):
         new_node = Node(data)
@@ -18,7 +23,8 @@ class LinkedList:
                 current_node = current_node.next 
             current_node.next = new_node  
         
-    def remove_node(self, data):
+
+    def remove_node_by_value(self, data):
         if self.head is None:
             return 
 
@@ -55,16 +61,39 @@ class LinkedList:
         return len_list 
 
 
+    def count_prime_number(self):
+        count = 0
+        if self.head is None:
+            return count 
+
+        def is_prime(number):
+            if number < 2:
+                return 0
+            for i in range(2, int(number**0.5)+1):
+                if number % i == 0:
+                    return 0
+            return 1
+
+        current_node = self.head
+        while 1:
+            if isinstance(current_node.data, int):
+                if is_prime(current_node.data):
+                    count += 1
+            if current_node.next is None:
+                break 
+            current_node = current_node.next
+
+        return count
+
 
 if __name__ == "__main__":
     ls = LinkedList()
-    ls.add_node(1)
-    ls.add_node(2)
     ls.add_node(5)
-    ls.add_node(3)
-    print(ls.get_len())
-    ls.print_list()
-    ls.remove_node(2)
-    ls.remove_node(5)
-    ls.add_node(10)
-    ls.print_list()
+    ls.add_node(9)
+    ls.add_node(11)
+    ls.add_node("java")
+    ls.add_node(12.3)
+    ls.add_node(16)
+    ls.add_node(31)
+    print("The number of prime number in linked list is:", ls.count_prime_number())
+    # print("Length is:",ls.get_len())
